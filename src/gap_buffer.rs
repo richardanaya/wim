@@ -20,7 +20,10 @@ impl GapBuffer {
 
         if new_len <= 2 {
             self.data.resize(new_len, ' ');
-            self.gap_end = new_len;
+            if new_len == 2 && end_count == 1 {
+                self.data[1] = self.data[0]
+            }
+            self.gap_end = new_len-end_count;
         } else {
             if new_len > l {
                 //if we exceed size double size of vector

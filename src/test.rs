@@ -279,3 +279,54 @@ fn basic_repeat() {
     assert_eq!(' ', gb.data[100]);
     assert_eq!(128, gb.data.len());
 }
+
+#[test]
+fn basic_insert_shift() {
+    let mut gb = gap_buffer::GapBuffer::new();
+    gb.insert_char('a');
+    gb.shift_gap_backward();
+    println!("{:?}",gb);
+    assert_eq!(gb.data[0], 'a');
+    assert_eq!(gb.data.len(), 1);
+    assert_eq!(gb.gap_start, 0);
+    assert_eq!(gb.gap_end, 0);
+    assert_eq!(gb.to_string(), "a");
+}
+
+#[test]
+fn basic_insert_shift_insert() {
+    let mut gb = gap_buffer::GapBuffer::new();
+    gb.insert_char('a');
+    gb.shift_gap_backward();
+    gb.insert_char('b');
+    assert_eq!(gb.data[0], 'b');
+    assert_eq!(gb.data[1], 'a');
+    assert_eq!(gb.data.len(), 2);
+    assert_eq!(gb.gap_start, 1);
+    assert_eq!(gb.gap_end, 1);
+    assert_eq!(gb.to_string(), "ba");
+}
+
+#[test]
+fn complex() {
+    let mut gb = gap_buffer::GapBuffer::new();
+    gb.insert_char('a');
+    gb.shift_gap_backward();
+    gb.insert_char('b');
+    gb.insert_char('c');
+    assert_eq!(gb.to_string(), "bca");
+}
+
+#[test]
+fn complex2() {
+    let mut gb = gap_buffer::GapBuffer::new();
+    gb.insert_char('a');
+    gb.shift_gap_backward();
+    gb.insert_char('b');
+    gb.shift_gap_backward();
+    gb.shift_gap_backward();
+    gb.shift_gap_backward();
+    gb.shift_gap_backward();
+    gb.insert_char('c');
+    assert_eq!(gb.to_string(), "cba");
+}
