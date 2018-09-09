@@ -90,6 +90,18 @@ impl GapBuffer {
         }
     }
 
+    pub fn shift_gap_backward_by(&mut self, n: usize) {
+        for _ in 0..n {
+            self.shift_gap_backward();
+        }
+    }
+
+    pub fn shift_gap_forward_by(&mut self, n: usize) {
+        for _ in 0..n {
+            self.shift_gap_forward();
+        }
+    }
+
     pub fn to_string(&self) -> String {
         //combine front and back characters into a string
         let mut front: String = self.data[..self.gap_start].into_iter().collect();

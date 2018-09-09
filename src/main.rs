@@ -34,6 +34,12 @@ fn run(window: &pancurses::Window, gb: &mut gap_buffer::GapBuffer, path: &Path) 
             Some(Input::KeyRight) => {
                 gb.shift_gap_forward();
             }
+            Some(Input::KeyUp) => {
+                gb.shift_gap_backward_by(10);
+            }
+            Some(Input::KeyDown) => {
+                gb.shift_gap_forward_by(10);
+            }
             _ => (),
         }
         renderer::render(&window, &gb);
