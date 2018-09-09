@@ -6,6 +6,7 @@ pub struct GapBuffer {
 }
 
 impl GapBuffer {
+    #[cfg(test)]
     pub fn new() -> GapBuffer {
         GapBuffer {
             data: vec![],

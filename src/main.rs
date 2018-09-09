@@ -8,8 +8,8 @@ mod gap_buffer;
 mod renderer;
 
 fn main() {
+    // Get file specified to create/open
     let args: Vec<String> = env::args().collect();
-    println!("{:?}", args);
     if args.len() == 1 {
         println!("command usage: wim <filename>");
         return;
@@ -18,12 +18,14 @@ fn main() {
     let path = Path::new(&filename);
     let exists = path.exists();
     let mut initial_text = String::new();
+    // If this file exists get its text to initialize the gap buffer
     if exists {
         let mut file = File::open(path).unwrap();
         file.read_to_string(&mut initial_text).unwrap();
     }
-
     let mut gb = gap_buffer::GapBuffer::new_from_string(initial_text);
+
+    // Start up ncurses
     let window = initscr();
     window.refresh();
     window.keypad(true);
