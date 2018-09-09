@@ -15,8 +15,8 @@ impl GapBuffer {
     }
 
     fn resize(&mut self, new_len: usize) {
-        let mut l = self.data.len();
-        let end_count = l-self.gap_end;
+        let mut len = self.data.len();
+        let end_count = len-self.gap_end;
 
         if new_len <= 2 {
             self.data.resize(new_len, ' ');
@@ -25,18 +25,18 @@ impl GapBuffer {
             }
             self.gap_end = new_len-end_count;
         } else {
-            if new_len > l {
+            if new_len > len {
                 //if we exceed size double size of vector
-                l *= 2;
-                self.data.resize(l, ' ');
+                len *= 2;
+                self.data.resize(len, ' ');
                 //if we grow our size, move ending characters to new end
                 if end_count > 0 {
                     for i in 0..end_count {
-                        self.data[l-end_count+i] = self.data[self.gap_end+i];
+                        self.data[len-end_count+i] = self.data[self.gap_end+i];
                     }
                 }
             }
-            self.gap_end = l-end_count;
+            self.gap_end = len-end_count;
         }
     }
 
@@ -54,9 +54,9 @@ impl GapBuffer {
             return;
         }
 
-        let l = self.gap_start-1;
-        self.resize(l);
-        self.gap_start = l;
+        let new_len = self.gap_start-1;
+        self.resize(new_len);
+        self.gap_start = new_len;
     }
 
     pub fn shift_gap_backward(&mut self) {
