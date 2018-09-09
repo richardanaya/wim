@@ -2,6 +2,7 @@ extern crate pancurses;
 
 use pancurses::{endwin, initscr, noecho, Input};
 mod gap_buffer;
+mod renderer;
 
 fn main() {
     let mut gb = gap_buffer::GapBuffer::new();
@@ -9,6 +10,7 @@ fn main() {
     window.refresh();
     window.keypad(true);
     noecho();
+    renderer::render(&window, &mut gb);
     loop {
         match window.getch() {
             Some(Input::Character(c)) => {
@@ -34,9 +36,7 @@ fn main() {
             }
             None => (),
         }
-        window.clear();
-        window.addstr(&gb.to_string());
-        window.mv(0, gb.gap_start as i32);
+        renderer::render(&window, &mut gb);
     }
     endwin();
 }
