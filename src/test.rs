@@ -337,10 +337,10 @@ fn complex3() {
     gb.insert_char('c');
     gb.shift_gap_backward();
     gb.shift_gap_backward();
-    println!("{:?}",gb);
+    println!("{:?}", gb);
     gb.shift_gap_forward();
-    println!("{:?}",gb);
+    println!("{:?}", gb);
     gb.shift_gap_forward();
-    println!("{:?}",gb);
+    println!("{:?}", gb);
     assert_eq!(gb.to_string(), "abc");
 }

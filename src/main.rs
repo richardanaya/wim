@@ -21,13 +21,13 @@ fn main() {
             }
             Some(Input::KeyBackspace) => {
                 gb.remove_char();
-            },
+            }
             Some(Input::KeyLeft) => {
                 gb.shift_gap_backward();
-            },
+            }
             Some(Input::KeyRight) => {
                 gb.shift_gap_forward();
-            },
+            }
             Some(_input) => {
                 //println!("something else {:?}",input)
                 ()
@@ -36,7 +36,7 @@ fn main() {
         }
         window.clear();
         window.addstr(&gb.to_string());
-        window.mv(0,gb.gap_start as i32);
+        window.mv(0, gb.gap_start as i32);
     }
     endwin();
 }

@@ -85,8 +85,8 @@ impl GapBuffer {
         //combine front and back characters into a string
         let mut front: String = self.data[..self.gap_start].into_iter().collect();
         let back: String = self.data[self.gap_end..].into_iter().collect();
-        println!("{:?}",front);
-        println!("{:?}",back);
+        println!("{:?}", front);
+        println!("{:?}", back);
         front.push_str(&back);
         front
     }
