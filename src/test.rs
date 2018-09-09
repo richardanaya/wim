@@ -328,3 +328,19 @@ fn complex2() {
     gb.insert_char('c');
     assert_eq!(gb.to_string(), "cba");
 }
+
+#[test]
+fn complex3() {
+    let mut gb = gap_buffer::GapBuffer::new();
+    gb.insert_char('a');
+    gb.insert_char('b');
+    gb.insert_char('c');
+    gb.shift_gap_backward();
+    gb.shift_gap_backward();
+    println!("{:?}",gb);
+    gb.shift_gap_forward();
+    println!("{:?}",gb);
+    gb.shift_gap_forward();
+    println!("{:?}",gb);
+    assert_eq!(gb.to_string(), "abc");
+}
