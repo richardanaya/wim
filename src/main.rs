@@ -47,16 +47,19 @@ fn main() {
         println!("command usage: wim <filename>");
         return;
     }
+
     // See if this path exists
     let filename = args[1].to_owned();
     let path = Path::new(&filename);
     let exists = path.exists();
-    let mut initial_text = String::new();
+
     // If this file exists get its text to initialize the gap buffer
+    let mut initial_text = String::new();
     if exists {
         let mut file = File::open(path).unwrap();
         file.read_to_string(&mut initial_text).unwrap();
     }
+
     // Create gap buffer
     let mut gb = gap_buffer::GapBuffer::new_from_string(initial_text);
 
@@ -65,8 +68,10 @@ fn main() {
     window.refresh();
     window.keypad(true);
     noecho();
+
     // Render first time
     renderer::render(&window, &gb);
+
     // Start render loop
     run(&window, &mut gb, path);
     endwin();
