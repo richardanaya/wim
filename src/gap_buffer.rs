@@ -14,18 +14,18 @@ impl GapBuffer {
         }
     }
 
-    fn resize(&mut self, new_len: usize) {
+    fn resize(&mut self, required_size: usize) {
         let mut len = self.data.len();
         let end_count = len-self.gap_end;
 
-        if new_len <= 2 {
-            self.data.resize(new_len, ' ');
-            if new_len == 2 && end_count == 1 {
+        if required_size <= 2 {
+            self.data.resize(required_size, ' ');
+            if required_size == 2 && end_count == 1 {
                 self.data[1] = self.data[0]
             }
-            self.gap_end = new_len-end_count;
+            self.gap_end = required_size-end_count;
         } else {
-            if new_len > len {
+            if required_size > len {
                 //if we exceed size double size of vector
                 len *= 2;
                 self.data.resize(len, ' ');
@@ -41,11 +41,11 @@ impl GapBuffer {
     }
 
     pub fn insert_char(&mut self, c: char) {
-        let front_count = self.gap_start;
+        let front_count = self.gap_start+1;
         let end_count = self.data.len()-self.gap_end;
-        self.resize(front_count + 1 + end_count);
+        self.resize(front_count + end_count);
         self.data[self.gap_start] = c;
-        self.gap_start += 1;
+        self.gap_start = front_count;
     }
 
     pub fn remove_char(&mut self) {
@@ -53,10 +53,10 @@ impl GapBuffer {
         if self.gap_start == 0 {
             return;
         }
-
-        let new_len = self.gap_start-1;
-        self.resize(new_len);
-        self.gap_start = new_len;
+        let front_count = self.gap_start-1;
+        let end_count = self.data.len()-self.gap_end;
+        self.resize(front_count+end_count);
+        self.gap_start = front_count;
     }
 
     pub fn shift_gap_backward(&mut self) {
