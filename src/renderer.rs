@@ -1,7 +1,7 @@
 use super::*;
 use pancurses;
 
-pub fn render(window: &pancurses::Window, gb: &mut gap_buffer::GapBuffer) {
+pub fn render(window: &pancurses::Window, gb: &gap_buffer::GapBuffer) {
     // Clear screen
     window.clear();
 
