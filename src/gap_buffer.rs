@@ -14,6 +14,14 @@ impl GapBuffer {
         }
     }
 
+    pub fn new_from_string(text: String) -> GapBuffer {
+        GapBuffer {
+            data: text.chars().collect(),
+            gap_start: 0,
+            gap_end: 0,
+        }
+    }
+
     fn resize(&mut self, required_size: usize) {
         let mut len = self.data.len();
         let end_count = len - self.gap_end;
