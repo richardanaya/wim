@@ -206,7 +206,6 @@ fn basic_move_forward_beyond() {
     assert_eq!(gb.to_string(), "abc");
 }
 
-
 #[test]
 fn basic_middle_insert() {
     let mut gb = gap_buffer::GapBuffer::new();
@@ -268,7 +267,6 @@ fn basic_middle_insert_too_long2() {
     assert_eq!(gb.to_string(), "abdfec");
 }
 
-
 #[test]
 fn basic_repeat() {
     let mut gb = gap_buffer::GapBuffer::new();
@@ -285,7 +283,7 @@ fn basic_insert_shift() {
     let mut gb = gap_buffer::GapBuffer::new();
     gb.insert_char('a');
     gb.shift_gap_backward();
-    println!("{:?}",gb);
+    println!("{:?}", gb);
     assert_eq!(gb.data[0], 'a');
     assert_eq!(gb.data.len(), 1);
     assert_eq!(gb.gap_start, 0);
